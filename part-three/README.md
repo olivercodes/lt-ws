@@ -3,7 +3,12 @@
 helm repo add falcosecurity https://falcosecurity.github.io/charts
 helm repo update
 
-helm install --replace falco --namespace falco --create-namespace --set tty=true falcosecurity/falco
+helm install falco falcosecurity/falco \
+  --namespace falco-system \
+  --create-namespace \
+  --set driver.kind=modern_ebpf \
+  --set falco.grpc.enabled=true \
+  --set falco.grpcOutput.enabled=true
 
 kubectl get pods -n falco
 
