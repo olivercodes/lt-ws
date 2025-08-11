@@ -11,3 +11,11 @@ kubectl get pods -n falco
 3. Add constraint
 4. Deploy deployment.yaml
 5. Deploy deployment-working.yaml
+
+
+helm upgrade falco falcosecurity/falco \
+  --namespace falco-system \
+  --set driver.kind=modern_ebpf \
+  --set falco.grpc.enabled=true \
+  --set falco.grpcOutput.enabled=true \
+  --set-file customRules."custom_rules\.yaml"=./root-detect-rule.yaml
